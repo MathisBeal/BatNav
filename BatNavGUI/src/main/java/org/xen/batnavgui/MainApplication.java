@@ -13,6 +13,8 @@ public class MainApplication extends Application {
     public static final String PLACE_BOATS_FXML = "PlaceBoats.fxml";
     public static final String PLAY_FXML = "";
 
+    public static BatailleUI batailleUI = new BatailleUI();
+
     static Stage m_Stage;
 
     @Override
@@ -22,7 +24,7 @@ public class MainApplication extends Application {
 
         m_Stage = stage;
 
-        m_Stage.setTitle("Welcome on BatNavGUI !");
+        m_Stage.setTitle("BatNavGUI");
         m_Stage.setScene(scene);
 
         m_Stage.setWidth(800);
@@ -30,18 +32,20 @@ public class MainApplication extends Application {
 
         m_Stage.setResizable(false);
 
-//        m_Stage.setMaxWidth(1200);
-//        m_Stage.setMaxHeight(700);
-//
-//        m_Stage.setMinWidth(800);
-//        m_Stage.setMinHeight(600);
-
         m_Stage.show();
     }
 
     static void ChangeScene(String FXML_file, String WindowName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(FXML_file));
+        Scene scene = new Scene(fxmlLoader.load(), m_Stage.getWidth(), m_Stage.getHeight());
 
+        m_Stage.setScene(scene);
+        m_Stage.setTitle(WindowName);
+    }
 
+    static void ChangeScene(String FXML_file, String WindowName, double Width, double Height) throws IOException {
+        m_Stage.setWidth(Width);
+        m_Stage.setHeight(Height);
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(FXML_file));
         Scene scene = new Scene(fxmlLoader.load(), m_Stage.getWidth(), m_Stage.getHeight());

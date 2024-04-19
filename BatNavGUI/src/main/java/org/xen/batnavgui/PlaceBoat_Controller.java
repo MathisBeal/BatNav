@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.transform.Rotate;
-import javafx.util.Pair;
 
 public class PlaceBoat_Controller {
 
@@ -21,10 +20,7 @@ public class PlaceBoat_Controller {
     @FXML
     private GridPane Grille;
 
-
     private ImageView[] BateauxImg = new ImageView[5];
-    private Boolean[] BateauxPlaces = new Boolean[5];
-    private Integer[][] BateauCoord = new Integer[5][2];
 
     public PlaceBoat_Controller() {
         super();
@@ -32,77 +28,75 @@ public class PlaceBoat_Controller {
         ImageView img;
 
         for (int i = 0; i < 5; i++) {
-            img = new ImageView("org/xen/batnavgui/Images/Boats "+(i+1)+".png");
+            img = new ImageView("org/xen/batnavgui/Images/Boats " + (i + 1) + ".png");
             img.setMouseTransparent(true);
             BateauxImg[i] = img;
 
-            BateauxPlaces[i] = false;
+            MainApplication.batailleUI.bateauxPlaces[i] = false;
         }
     }
+
+    int orientation = 1;
 
     @FXML
     void SetHorizontal(ActionEvent event) {
         ApercuBateau.getTransforms().clear();
-        ApercuBateau.getTransforms().add(new Rotate(90, 25, 25));
 
-
+        orientation = 1;
     }
 
     @FXML
     void SetVertical(ActionEvent event) {
         ApercuBateau.getTransforms().clear();
+        ApercuBateau.getTransforms().add(new Rotate(90, 25, 25));
+
+        orientation = 2;
     }
-
-
 
     public void SelectionnerBateau(ActionEvent actionEvent) {
         BateauSelectione = Integer.parseInt(((Button) actionEvent.getSource()).getText());
-        System.out.println(BateauSelectione-1);
+        System.out.println(BateauSelectione - 1);
 
-        ApercuBateau.setImage(new Image("org/xen/batnavgui/Images/Boats "+BateauSelectione+".png"));
+        ApercuBateau.setImage(new Image("org/xen/batnavgui/Images/Boats " + BateauSelectione + ".png"));
     }
 
-    Integer getColonne(ActionEvent event){
-        return GridPane.getColumnIndex(((Node) event.getSource()))==null ? 0 : GridPane.getColumnIndex(((Node) event.getSource()));
-    }
-    Integer getLigne(ActionEvent event){
-        return GridPane.getRowIndex(((Node) event.getSource()))==null ? 0 : GridPane.getRowIndex(((Node) event.getSource()));
+    Integer getColonne(ActionEvent event) {
+        return GridPane.getColumnIndex(((Node) event.getSource())) == null ? 0 : GridPane.getColumnIndex(((Node) event.getSource()));
     }
 
-    boolean TousPlaces() {
-        for (int i = 0; i < 5; i++) {
-            if (!BateauxPlaces[i])
-                return false;
-        }
-        return true;
+    Integer getLigne(ActionEvent event) {
+        return GridPane.getRowIndex(((Node) event.getSource())) == null ? 0 : GridPane.getRowIndex(((Node) event.getSource()));
     }
 
     public void ClicGrille(ActionEvent actionEvent) {
         Integer x = getColonne(actionEvent);
         Integer y = getLigne(actionEvent);
 
-        if (!BateauxPlaces[BateauSelectione-1]) {
-            if (ApercuBateau.getTransforms().isEmpty()){
-                BateauxImg[BateauSelectione-1].getTransforms().clear();
+        boolean res = MainApplication.batailleUI.AskForPlacement(BateauSelectione, x, y, orientation);
+        if (res)
+        {
+            if (!MainApplication.batailleUI.bateauxPlaces[BateauSelectione - 1]) {
+                if (ApercuBateau.getTransforms().isEmpty()) {
+                    BateauxImg[BateauSelectione - 1].getTransforms().clear();
+                } else {
+                    BateauxImg[BateauSelectione - 1].getTransforms().clear();
+                    BateauxImg[BateauSelectione - 1].getTransforms().add(ApercuBateau.getTransforms().getLast());
+                }
+                Grille.add(BateauxImg[BateauSelectione - 1], x, y);
+                MainApplication.batailleUI.bateauxPlaces[BateauSelectione - 1] = true;
             }
             else {
-                BateauxImg[BateauSelectione-1].getTransforms().clear();
-                BateauxImg[BateauSelectione-1].getTransforms().add(ApercuBateau.getTransforms().getLast());
+                if (ApercuBateau.getTransforms().isEmpty()) {
+                    BateauxImg[BateauSelectione - 1].getTransforms().clear();
+                } else {
+                    BateauxImg[BateauSelectione - 1].getTransforms().clear();
+                    BateauxImg[BateauSelectione - 1].getTransforms().add(ApercuBateau.getTransforms().getLast());
+                }
+                GridPane.setConstraints(BateauxImg[BateauSelectione - 1], x, y);
             }
-            Grille.add(BateauxImg[BateauSelectione-1], x, y);
-            BateauxPlaces[BateauSelectione-1] = true;
+            BoutonContinuer.setDisable(!BatailleUI.tousPlaces(MainApplication.batailleUI.bateauxPlaces));
+//            System.out.println("gooo\n");
         }
-        else {
-            if (ApercuBateau.getTransforms().isEmpty()){
-                BateauxImg[BateauSelectione-1].getTransforms().clear();
-            }
-            else {
-                BateauxImg[BateauSelectione-1].getTransforms().clear();
-                BateauxImg[BateauSelectione-1].getTransforms().add(ApercuBateau.getTransforms().getLast());
-            }
-            GridPane.setConstraints(BateauxImg[BateauSelectione-1], x, y);
-        }
-        BoutonContinuer.setDisable(!TousPlaces());
-        BateauCoord[BateauSelectione] = new Integer[]{x, y};
+//        else System.out.print("rrrrrrrro\n");
     }
 }
