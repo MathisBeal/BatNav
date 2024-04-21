@@ -11,7 +11,11 @@ import javafx.scene.transform.Rotate;
 
 import java.io.IOException;
 
-public class PlaceBoat_Controller {
+/**
+ * @author Mathis BÉAL
+ * @version 1.0
+ */
+public class PlacerBateaux_Controller {
 
     public Button BoutonContinuer;
     private Integer BateauSelectione = 1;
@@ -22,9 +26,13 @@ public class PlaceBoat_Controller {
     @FXML
     private GridPane Grille;
 
+    // Stocke les ImageView des bateaux du joueur
     private ImageView[] BateauxImg = new ImageView[5];
 
-    public PlaceBoat_Controller() {
+    /**
+     * Initialise toutes les ImageView(s) des bateaux
+     */
+    public PlacerBateaux_Controller() {
         super();
 
         ImageView img;
@@ -34,10 +42,11 @@ public class PlaceBoat_Controller {
             img.setMouseTransparent(true);
             BateauxImg[i] = img;
 
-            MainApplication.batailleUI.bateauxPlaces[i] = false;
+            ApplicationPrincipale.batailleUI.bateauxPlaces[i] = false;
         }
     }
 
+    // Orientation des bateaux (Horizontal par défaut)
     int orientation = 1;
 
     @FXML
@@ -55,6 +64,11 @@ public class PlaceBoat_Controller {
         orientation = 2;
     }
 
+    /**
+     * Sélectionne le bateau suivant le bouton cliqué
+     *
+     * @param actionEvent
+     */
     public void SelectionnerBateau(ActionEvent actionEvent) {
         BateauSelectione = Integer.parseInt(((Button) actionEvent.getSource()).getText());
         System.out.println(BateauSelectione - 1);
@@ -62,40 +76,41 @@ public class PlaceBoat_Controller {
         ApercuBateau.setImage(new Image("org/xen/batnavgui/Images/Boats " + BateauSelectione + ".png"));
     }
 
+    /**
+     * Renvoie la l'indice colonne du GridPane dans lequel il se trouve
+     *
+     * @param event Source
+     * @return int
+     */
     Integer getColonne(ActionEvent event) {
         return GridPane.getColumnIndex(((Node) event.getSource())) == null ? 0 : GridPane.getColumnIndex(((Node) event.getSource()));
     }
 
+    /**
+     * Renvoie la l'indice ligne du GridPane dans lequel il se trouve
+     *
+     * @param event Source
+     * @return int
+     */
     Integer getLigne(ActionEvent event) {
         return GridPane.getRowIndex(((Node) event.getSource())) == null ? 0 : GridPane.getRowIndex(((Node) event.getSource()));
     }
 
+    /**
+     * Fait les actions voulues lors d'un clic dans la grille de placement
+     * Comprend le placage du bateau en back-end et l'affichage du bateau en front-end
+     *
+     * @param actionEvent
+     */
     public void ClicGrille(ActionEvent actionEvent) {
 
-        //DEBUG ZONE
-        if (false) {
-            ActionEvent event = actionEvent;
-
-            Integer colonne = getColonne(event);
-            Integer ligne = getLigne(event);
-
-            System.out.print("x" + colonne + " y" + ligne + '\n');
-
-            Button btn = (Button) (event.getSource());
-            btn.setOpacity(0.5);
-            btn.setStyle("-fx-background-color:red; -fx-border-width:0; -fx-border-radius:0; -fx-background-radius:0;");
-            btn.setText("");
-            btn.toFront();
-            btn.setMaxHeight(49);
-            btn.setDisable(true);
-        }
 
         Integer x = getColonne(actionEvent);
         Integer y = getLigne(actionEvent);
 
-        boolean res = MainApplication.batailleUI.AskForPlacement(BateauSelectione, x, y, orientation);
+        boolean res = ApplicationPrincipale.batailleUI.DemanderPlacement(BateauSelectione, x, y, orientation);
         if (res) {
-            if (!MainApplication.batailleUI.bateauxPlaces[BateauSelectione - 1]) {
+            if (!ApplicationPrincipale.batailleUI.bateauxPlaces[BateauSelectione - 1]) {
                 if (ApercuBateau.getTransforms().isEmpty()) {
                     BateauxImg[BateauSelectione - 1].getTransforms().clear();
                 } else {
@@ -103,7 +118,7 @@ public class PlaceBoat_Controller {
                     BateauxImg[BateauSelectione - 1].getTransforms().add(ApercuBateau.getTransforms().getLast());
                 }
                 Grille.add(BateauxImg[BateauSelectione - 1], x, y);
-                MainApplication.batailleUI.bateauxPlaces[BateauSelectione - 1] = true;
+                ApplicationPrincipale.batailleUI.bateauxPlaces[BateauSelectione - 1] = true;
             } else {
                 if (ApercuBateau.getTransforms().isEmpty()) {
                     BateauxImg[BateauSelectione - 1].getTransforms().clear();
@@ -113,17 +128,16 @@ public class PlaceBoat_Controller {
                 }
                 GridPane.setConstraints(BateauxImg[BateauSelectione - 1], x, y);
             }
-            MainApplication.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].x = x;
-            MainApplication.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].y = y;
-            MainApplication.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].o = orientation;
+            ApplicationPrincipale.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].x = x;
+            ApplicationPrincipale.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].y = y;
+            ApplicationPrincipale.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].o = orientation;
 
-            BoutonContinuer.setDisable(!BatailleUI.tousPlaces(MainApplication.batailleUI.bateauxPlaces));
+            BoutonContinuer.setDisable(!BatailleUI.TousVrais(ApplicationPrincipale.batailleUI.bateauxPlaces));
         }
     }
 
     @FXML
     void LancerPartie(ActionEvent event) throws IOException {
-        MainApplication.ChangeScene(MainApplication.PLAY_FXML, "Bataille navale", 800, 700);
+        ApplicationPrincipale.ChangerScene(ApplicationPrincipale.JOUER_FXML, "Bataille navale", 800, 700);
     }
-
 }

@@ -2,17 +2,21 @@ package org.xen.batnavgui;
 
 import java.util.Random;
 
+/**
+ * @author Mathis BÉAL
+ * @version 2.0
+ * @see <a href="https://github.com/MathisBeal/BatNav/tree/CommandLine">Version ligne de commande</a>
+ */
 public class BatailleUI {
 
     // Taille des grilles
     private static int m_nTailleGrille = 10;
     private static String[] nomsBateaux = {"Porte-avion", "Croiseur", "Contre-torpilleur", "Sous-marin", "Torpilleur"};
 
+    // Générateur de nombres aléatoires
     private static Random rand = new Random();
 
-
     // Contient la grille de l'ordinateur adverse
-
     int[][] grilleOrdi = new int[m_nTailleGrille][m_nTailleGrille];
 
     // Contient la grille du joueur
@@ -77,8 +81,9 @@ public class BatailleUI {
      *
      * @param taille int, Taille du bateau
      * @param type   int, Type du bateau //voir sujet / future doc
+     * @return Coord avec la position et l'orientation du bateau placé
      */
-    protected Coord placerBatOrdi(int taille, int type) {
+    Coord placerBatOrdi(int taille, int type) {
 
         int col;
         int lig;
@@ -136,30 +141,12 @@ public class BatailleUI {
     }
 
     /**
-     * Affiche la grille passée en paramètre
+     * Vérifie si tous les booléens du tableau sont true
      *
-     * @param grille Grille (array de type int[][])
+     * @param tab Tableau de booléens à vérifier
+     * @return true si ils sont tous à vrai, false sinon
      */
-    void afficherGrille(int[][] grille) {
-        System.out.println();
-        char[] nom_cols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        System.out.print("\t");
-        for (int i = 0; i < grille.length; i++) {
-            System.out.print(nom_cols[i] + " ");
-        }
-        System.out.println();
-
-        for (int i = 0; i < grille.length; i++) {
-            System.out.print(i + 1 + "\t");
-            for (int j = 0; j < grille[0].length; j++) {
-                System.out.print(grille[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
-
-    static boolean tousPlaces(boolean[] tab) {
+    static boolean TousVrais(boolean[] tab) {
         for (int i = 0; i < tab.length; i++) {
             if (!tab[i])
                 return false;
@@ -167,104 +154,13 @@ public class BatailleUI {
         return true;
     }
 
-
     /**
-     * Initialise la grille du joueur en demandant où il souhaite placer ses bateaux
+     * Vérifie si un bateau a été coulé
+     *
+     * @param grille     Grille sur laquelle le tir a eu lieu
+     * @param typeBateau Type du bateau à vérifier
+     * @return true si le bateau a été coulé, false sinon
      */
-//    private static void initGrilleJeu(){
-//        int[] taillesBateaux = {5,4,3,3,2};
-//        boolean[] bateauPlaced = {false, false, false, false, false};
-//
-//        boolean inputError = false;
-//
-//        int choixBateau, col, lig, or;
-//        char colS;
-//
-//        System.out.print("Veuillez placer vos bateaux");
-//        while (!tousPlaces(bateauPlaced)){
-//            afficherGrille(grilleJoueur);
-//
-//            System.out.print("\nIl reste :\n");
-//            for (int i = 0; i < bateauPlaced.length; i++) {
-//                if (!bateauPlaced[i]){
-//                    System.out.print(i+1+" - "+nomsBateaux[i]+" ("+taillesBateaux[i]+" cases)\n");
-//                }
-//            }
-//            System.out.print("Choisissez un bateau\n>>");
-//
-//            try {
-//                choixBateau = Integer.parseInt(m_sScanner.next())-1;
-//            }
-//            catch (java.lang.NumberFormatException e) {
-//                System.out.print("ERREUR : Ce n'est pas un bateau\n");
-//                continue;
-//            }
-//
-//            if (choixBateau > bateauPlaced.length){
-//                System.out.print("ERREUR : Ce n'est pas un bateau\n");
-//                continue;
-//            }
-//            else if (bateauPlaced[choixBateau]) {
-//                System.out.print("ERREUR : Ce bateau est déjà placé\n");
-//                continue;
-//            }
-//
-//            System.out.print("Choisissez une ligne (1-"+m_nTailleGrille+")\n>>");
-//            try {
-//                lig = Integer.parseInt(m_sScanner.next())-1;
-//            }
-//            catch (java.lang.NumberFormatException e){
-//                System.out.print("ERREUR : Ce n'est pas une ligne\n");
-//                continue;
-//            }
-//            if (lig<0 || lig>=grilleJoueur.length){
-//                System.out.print("ERREUR : En dehors de la grille\n");
-//                continue;
-//            }
-//
-//            System.out.print("Choisissez une colonne (A-J)\n>>");
-//            colS = m_sScanner.next().toUpperCase().charAt(0);
-//            col = colS-'A';
-//            if (col<0 || col>=grilleJoueur.length){
-//                System.out.print("ERREUR : En dehors de la grille\n");
-//                continue;
-//            }
-//
-//            System.out.print("Choisissez une orientation (1 pour horizontal et 2 pour vertical)\n>>");
-//            try {
-//                or = Integer.parseInt(m_sScanner.next());
-//            }
-//            catch (java.lang.NumberFormatException e){
-//                System.out.print("ERREUR : Ce n'est pas une orientation\n");
-//                continue;
-//            }
-//
-//            if (or!=1 && or!=2){
-//                System.out.print("ERREUR : Ce n'est pas une orientation\n");
-//                continue;
-//            }
-//
-//            if (positionValide(grilleJoueur, lig, col, or, taillesBateaux[choixBateau])){
-//                if (or==1){
-//                    for (int i = 0; i < taillesBateaux[choixBateau]; i++) {
-//                        grilleJoueur[lig][col+i] = choixBateau+1;
-//                    }
-//                }
-//                else {
-//                    for (int i = 0; i < taillesBateaux[choixBateau]; i++) {
-//                        grilleJoueur[lig+i][col] = choixBateau+1;
-//                    }
-//                }
-//                bateauPlaced[choixBateau]=true;
-//                System.out.print("Bateau placé avec succès\n");
-//            }
-//            else {
-//                System.out.print("ERREUR : Impossible de placer le bateau ici\n");
-//            }
-//        }
-//        System.out.print("Tous les bateaux ont été placés\n");
-//
-//    }
     private static boolean couler(int[][] grille, int typeBateau) {
         for (int i = 0; i < grille.length; i++) {
             for (int j = 0; j < grille[0].length; j++) {
@@ -302,14 +198,19 @@ public class BatailleUI {
     }
 
     /**
-     * Donne des coordonnées de tir aléatoires
+     * Donne des coordonnées de tir aléatoires sur une grille
      *
-     * @return Un int[], avec la ligne et la colonne
+     * @return Un Coord, avec la ligne et la colonne
      */
     private Coord tirRandom() {
         return new Coord(randint(0, m_nTailleGrille), randint(0, m_nTailleGrille), 0);
     }
 
+    /**
+     * Fait faire un tir à l'ordinateur
+     *
+     * @return Un Coord avec les coordonnées d'ou le tir à eu lieu
+     */
     Coord EffectuerTirOrdi() {
 
         Coord coo;
@@ -320,11 +221,13 @@ public class BatailleUI {
             res = EffectuerTir(grilleJoueur, coo.y, coo.x);
         }
         while (res == -1);
+
+        // On utilise l'int qui sert d'habitude à l'orientation pour ici récupérer le résultat du tir
         return new Coord(coo.x, coo.y, res);
     }
 
     /**
-     * Indique si un joueur a gagné
+     * Indique si un joueur à perdu (à l'aide de sa grille)
      *
      * @param grille Grille à vérifier
      * @return True si le propriétaire de la grille a perdu, False sinon
@@ -341,150 +244,8 @@ public class BatailleUI {
     }
 
     /**
-     * Réinitialise la grille en mettant toutes les cases à 0
-     *
-     * @param grille Grille à réinitialiser
+     * Type de donnée servant à stocker des coordonnées ainsi qu'une orientation (la plupart du temps)
      */
-    private static void ReGrille(int[][] grille) {
-        for (int i = 0; i < m_nTailleGrille; i++) {
-            for (int j = 0; j < m_nTailleGrille; j++) {
-                grille[i][j] = 0;
-            }
-        }
-    }
-
-
-    /**
-     * Demande au joueur où il souhaite tirer
-     * @return Un int[], avec la ligne et la colonne
-     */
-//    private static int[] tirJoueur(){
-//
-//        boolean inputError = true;
-//
-//        int lig = 0, col = 0;
-//
-//        while (inputError){
-//            inputError = false;
-//            System.out.print("Selectionnez une position où tirer :\n");
-//            System.out.print("Rentrez une ligne (1-"+m_nTailleGrille+")\n>>");
-//
-//            try {
-//                lig = Integer.parseInt(m_sScanner.next())-1;
-//            }
-//            catch (NumberFormatException e){
-//                System.out.print("ERREUR : Ce n'est pas une ligne\n");
-//                inputError = true;
-//                continue;
-//            }
-//            if (lig<0 || lig>=grilleJoueur.length){
-//                System.out.print("ERREUR : En dehors de la grille\n");
-//                inputError = true;
-//                continue;
-//            }
-//
-//            System.out.print("Rentrez une colonne (A-J)\n>>");
-//            char colS = m_sScanner.next().toUpperCase().charAt(0);
-//            col = colS-'A';
-//            if (col<0 || col>=grilleJoueur.length){
-//                System.out.print("ERREUR : En dehors de la grille\n");
-//                inputError = true;
-//            }
-//        }
-//
-//        return new int[] {lig, col};
-//    }
-
-
-    /**
-     * Fait le déroulé de la bataille navale
-     *
-     * @return Le résultat de l'exécution (0 si l'exécution se déroule sans problème jusqu'à la fin)
-     */
-//    public static int engagement(){
-//
-//        System.out.print("\n#########################################################\n"+
-//                "Bienvenue dans une nouvelle partie de bataille navale !!!"+
-//                "\n#########################################################\n");
-//
-//
-//        ReGrille(grilleOrdi);
-//        ReGrille(grilleJoueur);
-//
-//        initGrilleOrdi();
-//        initGrilleJeu();
-//
-//        System.out.print("\n######################\n"+
-//                "Début de la partie !!!"+
-//                "\n######################\n");
-//
-//        boolean VicOrdi = false,
-//                VicJoueur = false;
-//
-//        int ResOrdi, ResJoueur;
-//
-//        int lig, col;
-//        int[] tir;// = tirOrdinateur();
-//
-//        while (!VicOrdi && !VicJoueur) {
-//
-//            tir = tirOrdinateur();
-//            lig=tir[0];
-//            col=tir[1];
-//
-//            System.out.print("\n----------\nL'ordinateur joue son tour :\n");
-//
-//            ResOrdi = mouvement(grilleJoueur, lig, col);
-//
-//            if (ResOrdi == 1) {
-//                VicOrdi = vainqueur(grilleJoueur);
-//                if (VicOrdi)
-//                    break;
-//            }
-//
-//            System.out.print("\nVoici l'état de votre grille :");
-//            afficherGrille(grilleJoueur);
-//            System.out.println();
-//
-//            System.out.print("DEBUG : Grille adversaire :");
-//            afficherGrille(grilleOrdi);
-//            System.out.println();
-//
-//
-//            System.out.print("\n----------\nA votre tour :\n");
-//            tir = tirJoueur();
-//            lig=tir[0];
-//            col=tir[1];
-//
-//
-//
-//            ResJoueur = mouvement(grilleOrdi, lig, col);
-//
-//            if (ResJoueur == 1) {
-//                VicJoueur = vainqueur(grilleOrdi);
-//                if (VicJoueur)
-//                    break;
-//            }
-//
-//
-//
-//        }
-//
-//
-//        System.out.print("#######################################################\n" +
-//                "Fin de partie\n");
-//        if (VicOrdi){
-//            System.out.print("Vous avez perdu la partie...");
-//        }
-//        if (VicJoueur){
-//            System.out.print("Vous avez gagné la partie !!!");
-//        }
-//
-//
-//        return 0;
-//    }
-
-
     public class Coord {
         public int x = -1;
         public int y = -1;
@@ -501,13 +262,30 @@ public class BatailleUI {
         }
     }
 
+    // Liste des placements des bateaux du joueur
     Coord[] coordsBateauxJoueur = new Coord[5];
+
+    // Liste des placements des bateaux de l'ordinateur
     Coord[] coordsBateauxAdversaire = new Coord[5];
+
+    // Stocke si les bateaux ont été placés
     boolean[] bateauxPlaces = new boolean[5];
-    int[] taillesBateaux = {2, 3, 3, 4, 5};
+
+    // Stocke les tailles des bateaux correspondant aux indices
+    final int[] taillesBateaux = {2, 3, 3, 4, 5};
+
+    // Permet de savoir si l'utilisateur souhaite activer le mode triche
     boolean triche;
 
-    public boolean AskForPlacement(Integer bateauSelectione, Integer x, Integer y, int orientation) {
+    /**
+     * Place un bateau sur la grille joueur
+     * @param bateauSelectione L'indice du bateau sélectionné (+1)
+     * @param x La coordonnée x de là où il souhaite placer
+     * @param y La coordonnée y de là où il souhaite placer
+     * @param orientation L'orientation du bateaau
+     * @return Un booléen indiquant si le bateau a été placé ou non
+     */
+    public boolean DemanderPlacement(Integer bateauSelectione, Integer x, Integer y, int orientation) {
 
         int a = x;
         x = y;

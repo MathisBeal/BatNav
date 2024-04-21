@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xen.batnavgui.MainMenu_Controller">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xen.batnavgui.MenuPrincipal_Controller">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -16,9 +16,9 @@
             <Font name="Gill Sans MT Bold" size="20.0"/>
         </font>
     </Label>
-    <Button minHeight="35.0" mnemonicParsing="false" onAction="#JouerNoCheat" prefWidth="150.0"
+    <Button minHeight="35.0" mnemonicParsing="false" onAction="#JouerSansTriche" prefWidth="150.0"
             text="Jouer (sans triche)"/>
-    <Button minHeight="35.0" mnemonicParsing="false" onAction="#JouerCheated" prefWidth="150.0"
+    <Button minHeight="35.0" mnemonicParsing="false" onAction="#JouerAvecTriche" prefWidth="150.0"
             text="Jouer (avec triche)"/>
     <Button minHeight="35.0" onAction="#Quitter" prefWidth="150.0" text="Quitter"/>
 </VBox>

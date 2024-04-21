@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <HBox alignment="TOP_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xen.batnavgui.PlaceBoat_Controller">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xen.batnavgui.PlacerBateaux_Controller">
     <children>
         <VBox prefHeight="600.0" prefWidth="300.0">
             <children>
