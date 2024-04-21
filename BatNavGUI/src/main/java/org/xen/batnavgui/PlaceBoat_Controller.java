@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.transform.Rotate;
 
+import java.io.IOException;
+
 public class PlaceBoat_Controller {
 
     public Button BoutonContinuer;
@@ -69,12 +71,30 @@ public class PlaceBoat_Controller {
     }
 
     public void ClicGrille(ActionEvent actionEvent) {
+
+        //DEBUG ZONE
+        if (false) {
+            ActionEvent event = actionEvent;
+
+            Integer colonne = getColonne(event);
+            Integer ligne = getLigne(event);
+
+            System.out.print("x" + colonne + " y" + ligne + '\n');
+
+            Button btn = (Button) (event.getSource());
+            btn.setOpacity(0.5);
+            btn.setStyle("-fx-background-color:red; -fx-border-width:0; -fx-border-radius:0; -fx-background-radius:0;");
+            btn.setText("");
+            btn.toFront();
+            btn.setMaxHeight(49);
+            btn.setDisable(true);
+        }
+
         Integer x = getColonne(actionEvent);
         Integer y = getLigne(actionEvent);
 
         boolean res = MainApplication.batailleUI.AskForPlacement(BateauSelectione, x, y, orientation);
-        if (res)
-        {
+        if (res) {
             if (!MainApplication.batailleUI.bateauxPlaces[BateauSelectione - 1]) {
                 if (ApercuBateau.getTransforms().isEmpty()) {
                     BateauxImg[BateauSelectione - 1].getTransforms().clear();
@@ -84,8 +104,7 @@ public class PlaceBoat_Controller {
                 }
                 Grille.add(BateauxImg[BateauSelectione - 1], x, y);
                 MainApplication.batailleUI.bateauxPlaces[BateauSelectione - 1] = true;
-            }
-            else {
+            } else {
                 if (ApercuBateau.getTransforms().isEmpty()) {
                     BateauxImg[BateauSelectione - 1].getTransforms().clear();
                 } else {
@@ -94,9 +113,17 @@ public class PlaceBoat_Controller {
                 }
                 GridPane.setConstraints(BateauxImg[BateauSelectione - 1], x, y);
             }
+            MainApplication.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].x = x;
+            MainApplication.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].y = y;
+            MainApplication.batailleUI.coordsBateauxJoueur[BateauSelectione - 1].o = orientation;
+
             BoutonContinuer.setDisable(!BatailleUI.tousPlaces(MainApplication.batailleUI.bateauxPlaces));
-//            System.out.println("gooo\n");
         }
-//        else System.out.print("rrrrrrrro\n");
     }
+
+    @FXML
+    void LancerPartie(ActionEvent event) throws IOException {
+        MainApplication.ChangeScene(MainApplication.PLAY_FXML, "Bataille navale", 800, 700);
+    }
+
 }

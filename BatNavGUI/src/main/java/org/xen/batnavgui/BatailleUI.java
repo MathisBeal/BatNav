@@ -1,7 +1,6 @@
 package org.xen.batnavgui;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class BatailleUI {
 
@@ -14,57 +13,56 @@ public class BatailleUI {
 
     // Contient la grille de l'ordinateur adverse
 
-    private static int [][] grilleOrdi = new int [m_nTailleGrille][m_nTailleGrille];
+    int[][] grilleOrdi = new int[m_nTailleGrille][m_nTailleGrille];
 
     // Contient la grille du joueur
-    private static int [][] grilleJoueur = new int [m_nTailleGrille][m_nTailleGrille];
+    int[][] grilleJoueur = new int[m_nTailleGrille][m_nTailleGrille];
 
     /**
      * Génère un nombre aléatoire
+     *
      * @param a Borne inférieure (comprise)
      * @param b Borne supérieure (non comprise)
      * @return L'entier généré aléatoirement
      */
-    private static int randint(int a, int b){
-        return rand.nextInt(b-a)+a;
+    private static int randint(int a, int b) {
+        return rand.nextInt(b - a) + a;
     }
 
 
     /**
      * Fonction servant à savoir si il est possible de placer un bateau selon des coordonnées données
      *
-     * @param grille Grille dans laquelle vérifier le placement
-     * @param ligne Ligne de départ du placement du bateau
-     * @param colonne Colonne de départ de placement du bateau
+     * @param grille    Grille dans laquelle vérifier le placement
+     * @param ligne     Ligne de départ du placement du bateau
+     * @param colonne   Colonne de départ de placement du bateau
      * @param direction Direction dans laquelle placer le bateau (1 pour horizontal, 2 pour vertical)
-     * @param taille Taille du bateau en nombre de cases qu'il va occuper
+     * @param taille    Taille du bateau en nombre de cases qu'il va occuper
      * @return True si il est possible de placer le bateau, False sinon
      */
-    private static boolean positionValide(int[][] grille, int ligne, int colonne, int direction, int taille){
+    private static boolean positionValide(int[][] grille, int ligne, int colonne, int direction, int taille) {
 
         // Vérifie si le bateau ne dépasse pas de la grille
-        if (direction==1){
+        if (direction == 1) {
             if (colonne + taille > grille[0].length) {
                 return false;
             }
-        }
-        else {
-            if (ligne + taille > grille.length){
+        } else {
+            if (ligne + taille > grille.length) {
                 return false;
             }
         }
 
         // Vérifie si le bateau ne sera pas placé sur un autre
-        if (direction==1){
+        if (direction == 1) {
             for (int i = 0; i < taille; i++) {
-                if (grille[ligne][colonne+i] != 0) {
+                if (grille[ligne][colonne + i] != 0) {
                     return false;
                 }
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < taille; i++) {
-                if (grille[ligne+i][colonne] != 0) {
+                if (grille[ligne + i][colonne] != 0) {
                     return false;
                 }
             }
@@ -76,47 +74,41 @@ public class BatailleUI {
 
     /**
      * Place un bateau sur la grille de l'ordi, suivant la taille donnée
+     *
      * @param taille int, Taille du bateau
-     * @param type int, Type du bateau //voir sujet / future doc
+     * @param type   int, Type du bateau //voir sujet / future doc
      */
-    protected static void placerBatOrdi(int taille, int type){
+    protected Coord placerBatOrdi(int taille, int type) {
 
         int col;
         int lig;
         int or;
 
         do {
-            col=randint(0, m_nTailleGrille);
-            lig=randint(0, m_nTailleGrille);
-            or=randint(1,3);
-//            System.out.println("Picked : col="+col+"; lig="+lig+"; or="+or+";");
+            col = randint(0, m_nTailleGrille);
+            lig = randint(0, m_nTailleGrille);
+            or = randint(1, 3);
         }
         while (!positionValide(grilleOrdi, lig, col, or, taille));
-        //System.out.println("Size="+taille+";");
 
-        if (or==1){
-//            System.out.println("Size="+taille+";");
+        if (or == 1) {
             for (int i = 0; i < taille; i++) {
-                grilleOrdi[lig][col+i] = type;
-//                System.out.println("Put : col="+i+"; lig="+lig+"; type="+type+";");
+                grilleOrdi[lig][col + i] = type;
             }
-        }
-        else {
-//            System.out.println("Size="+taille+";");
+        } else {
             for (int i = 0; i < taille; i++) {
-                grilleOrdi[lig+i][col] = type;
-//                System.out.println("Put : col="+col+"; lig="+i+"; type="+type+";");
+                grilleOrdi[lig + i][col] = type;
             }
         }
 
-        //return;
+        return new Coord(col, lig, or);
     }
 
 
     /**
      * Initialise la grille de l'ordi avec les 5 bateaux
      */
-    private static void initGrilleOrdi(){
+    public void initGrilleOrdi() {
         /*
         1 - Porte-avions (5 cases)
         2 - Croiseur (4 cases)
@@ -124,33 +116,41 @@ public class BatailleUI {
         4 - Sous-marin (3 cases)
         5 - Torpilleur (2 cases)
          */
-//        System.out.println("placerBatOrdi(5, 1);");
-        placerBatOrdi(5, 1);
-//        System.out.println("placerBatOrdi(4, 2);");
-        placerBatOrdi(4, 2);
-//        System.out.println("placerBatOrdi(3, 3);");
-        placerBatOrdi(3, 3);
-//        System.out.println("placerBatOrdi(3, 4);");
-        placerBatOrdi(3, 4);
-//        System.out.println("placerBatOrdi(2, 5);");
-        placerBatOrdi(2, 5);
+
+        Coord co;
+
+        co = placerBatOrdi(5, 5);
+        coordsBateauxAdversaire[4] = co;
+
+        co = placerBatOrdi(4, 4);
+        coordsBateauxAdversaire[3] = co;
+
+        co = placerBatOrdi(3, 3);
+        coordsBateauxAdversaire[2] = co;
+
+        co = placerBatOrdi(3, 2);
+        coordsBateauxAdversaire[1] = co;
+
+        co = placerBatOrdi(2, 1);
+        coordsBateauxAdversaire[0] = co;
     }
 
     /**
      * Affiche la grille passée en paramètre
+     *
      * @param grille Grille (array de type int[][])
      */
-    private static void afficherGrille(int[][] grille) {
+    void afficherGrille(int[][] grille) {
         System.out.println();
         char[] nom_cols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         System.out.print("\t");
-        for(int i = 0; i<grille.length; i++){
-            System.out.print(nom_cols[i]+" ");
+        for (int i = 0; i < grille.length; i++) {
+            System.out.print(nom_cols[i] + " ");
         }
         System.out.println();
 
         for (int i = 0; i < grille.length; i++) {
-            System.out.print(i+1+"\t");
+            System.out.print(i + 1 + "\t");
             for (int j = 0; j < grille[0].length; j++) {
                 System.out.print(grille[i][j]);
             }
@@ -159,12 +159,7 @@ public class BatailleUI {
     }
 
 
-    /**
-     * Vérifie si tous les bateaux du joueur sont placés
-     * @param tab Grille du joueur
-     * @return Un booléen
-     */
-    static boolean tousPlaces(boolean[] tab){
+    static boolean tousPlaces(boolean[] tab) {
         for (int i = 0; i < tab.length; i++) {
             if (!tab[i])
                 return false;
@@ -270,10 +265,9 @@ public class BatailleUI {
 //        System.out.print("Tous les bateaux ont été placés\n");
 //
 //    }
-
-    private static boolean couler(int[][] grille, int typeBateau){
+    private static boolean couler(int[][] grille, int typeBateau) {
         for (int i = 0; i < grille.length; i++) {
-            for (int j = 0; j < grille[0].length; j++){
+            for (int j = 0; j < grille[0].length; j++) {
                 if (grille[i][j] == typeBateau)
                     return false;
             }
@@ -284,29 +278,24 @@ public class BatailleUI {
 
     /**
      * Fait un tir dans la grille donnée à la position donnée
+     *
      * @param grille Grille dans laquelle tirer
-     * @param lig Ligne où tirer
-     * @param col Colonne où tirer
+     * @param lig    Ligne où tirer
+     * @param col    Colonne où tirer
      * @return <li>0 - Dans l'eau</li><li>-1 - A tiré sur un emplacement déjà touché</li><li>1 - A coulé un bâteau</li><li>2 - A touché un bâteau</li>
      */
-    private static int mouvement(int[][] grille, int lig, int col){
+    int EffectuerTir(int[][] grille, int lig, int col) {
         if (grille[lig][col] == 0) {
-            System.out.print("Dans l'eau...\n");
+            grille[lig][col] = 6;
             return 0;
-        }
-        else if (grille[lig][col] == 6) {
-            System.out.print("Cette case avait déjà été pilonnée\n");
+        } else if (grille[lig][col] == 6) {
             return -1;
-        }
-        else {
+        } else {
             int carreau = grille[lig][col];
-            grille[lig][col]=6;
-            if (couler(grille, carreau)){
-                System.out.print("Coulé ("+nomsBateaux[carreau-1]+") !!!\n");
+            grille[lig][col] = 6;
+            if (couler(grille, carreau)) {
                 return 1;
-            }
-            else {
-                System.out.print("Touché !!!\n");
+            } else {
                 return 2;
             }
         }
@@ -314,18 +303,33 @@ public class BatailleUI {
 
     /**
      * Donne des coordonnées de tir aléatoires
+     *
      * @return Un int[], avec la ligne et la colonne
      */
-    private static int[] tirOrdinateur(){
-        return new int[] {randint(0,m_nTailleGrille), randint(0, m_nTailleGrille)};
+    private Coord tirRandom() {
+        return new Coord(randint(0, m_nTailleGrille), randint(0, m_nTailleGrille), 0);
+    }
+
+    Coord EffectuerTirOrdi() {
+
+        Coord coo;
+
+        int res;
+        do {
+            coo = tirRandom();
+            res = EffectuerTir(grilleJoueur, coo.y, coo.x);
+        }
+        while (res == -1);
+        return new Coord(coo.x, coo.y, res);
     }
 
     /**
      * Indique si un joueur a gagné
-     * @param grille Grille de l'adversaire
-     * @return True si il a gagné, False sinon
+     *
+     * @param grille Grille à vérifier
+     * @return True si le propriétaire de la grille a perdu, False sinon
      */
-    private static boolean vainqueur(int[][] grille){
+    boolean EstPerdant(int[][] grille) {
         for (int i = 0; i < m_nTailleGrille; i++) {
             for (int j = 0; j < m_nTailleGrille; j++) {
                 if (grille[i][j] != 0 && grille[i][j] != 6) {
@@ -338,12 +342,13 @@ public class BatailleUI {
 
     /**
      * Réinitialise la grille en mettant toutes les cases à 0
+     *
      * @param grille Grille à réinitialiser
      */
-    private static void ReGrille(int[][] grille){
+    private static void ReGrille(int[][] grille) {
         for (int i = 0; i < m_nTailleGrille; i++) {
             for (int j = 0; j < m_nTailleGrille; j++) {
-                grille[i][j]=0;
+                grille[i][j] = 0;
             }
         }
     }
@@ -393,6 +398,7 @@ public class BatailleUI {
 
     /**
      * Fait le déroulé de la bataille navale
+     *
      * @return Le résultat de l'exécution (0 si l'exécution se déroule sans problème jusqu'à la fin)
      */
 //    public static int engagement(){
@@ -479,22 +485,27 @@ public class BatailleUI {
 //    }
 
 
-    public class Coord{
+    public class Coord {
         public int x = -1;
         public int y = -1;
+        public int o = 0;
 
-        public Coord(int _x, int _y){
+        public Coord(int _x, int _y, int _o) {
             x = _x;
             y = _y;
+            o = _o;
         }
+
         public Coord() {
 
         }
     }
 
-    Coord[] coordonnesBateaux = new Coord[5];
+    Coord[] coordsBateauxJoueur = new Coord[5];
+    Coord[] coordsBateauxAdversaire = new Coord[5];
     boolean[] bateauxPlaces = new boolean[5];
     int[] taillesBateaux = {2, 3, 3, 4, 5};
+    boolean triche;
 
     public boolean AskForPlacement(Integer bateauSelectione, Integer x, Integer y, int orientation) {
 
@@ -502,9 +513,7 @@ public class BatailleUI {
         x = y;
         y = a;
 
-        System.out.print("x"+x+"\ny"+y);
-
-        if (bateauxPlaces[bateauSelectione-1]){
+        if (bateauxPlaces[bateauSelectione - 1]) {
             for (int i = 0; i < m_nTailleGrille; i++) {
                 for (int j = 0; j < m_nTailleGrille; j++) {
                     if (grilleJoueur[i][j] == bateauSelectione) {
@@ -513,23 +522,20 @@ public class BatailleUI {
                 }
             }
         }
-        if (positionValide(grilleJoueur, x, y, orientation, taillesBateaux[bateauSelectione-1])){
+
+        if (positionValide(grilleJoueur, x, y, orientation, taillesBateaux[bateauSelectione - 1])) {
             if (orientation == 1) {
-                for (int i = 0; i < taillesBateaux[bateauSelectione-1]; i++) {
+                for (int i = 0; i < taillesBateaux[bateauSelectione - 1]; i++) {
                     grilleJoueur[x][y + i] = bateauSelectione;
                 }
             } else {
-                for (int i = 0; i < taillesBateaux[bateauSelectione-1]; i++) {
+                for (int i = 0; i < taillesBateaux[bateauSelectione - 1]; i++) {
                     grilleJoueur[x + i][y] = bateauSelectione;
                 }
             }
-            afficherGrille(grilleJoueur);
+            coordsBateauxJoueur[bateauSelectione - 1] = new Coord(x, y, orientation);
             return true;
         }
-//        coordonnesBateaux[bateauSelectione-1] = new Coord(x, y);
-
-        System.out.print("aaa");
-
         return false;
     }
 }

@@ -11,7 +11,7 @@ public class MainApplication extends Application {
 
     public static final String MENU_FXML = "MainMenu.fxml";
     public static final String PLACE_BOATS_FXML = "PlaceBoats.fxml";
-    public static final String PLAY_FXML = "";
+    public static final String PLAY_FXML = "PlayActivity.fxml";
 
     public static BatailleUI batailleUI = new BatailleUI();
 
@@ -20,19 +20,20 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(MENU_FXML));
-        Scene scene = new Scene(fxmlLoader.load());//, 800, 600);
+        Scene scene = new Scene(fxmlLoader.load());
 
         m_Stage = stage;
 
-        m_Stage.setTitle("BatNavGUI");
-        m_Stage.setScene(scene);
-
-        m_Stage.setWidth(800);
-        m_Stage.setHeight(600);
-
         m_Stage.setResizable(false);
 
+        ChangeScene(MENU_FXML, "BatNavGUI" ,800, 600);
+
         m_Stage.show();
+//        m_Stage.setTitle("BatNavGUI");
+//        m_Stage.setScene(scene);
+//
+//        m_Stage.setWidth(800);
+//        m_Stage.setHeight(600);
     }
 
     static void ChangeScene(String FXML_file, String WindowName) throws IOException {
@@ -54,33 +55,14 @@ public class MainApplication extends Application {
         m_Stage.setTitle(WindowName);
     }
 
+    public static void PreparerNouvellePartie() throws IOException {
+        batailleUI = new BatailleUI();
+        ChangeScene(MENU_FXML, "BatNavGUI", 800, 600);
+    }
+
+
     public static void main(String[] args) {
         launch();
     }
 }
 
-//            <ImageView fitHeight="50.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-//               <image>
-//                  <Image url="@Boats%201.png" />
-//               </image>
-//            </ImageView>
-//            <ImageView fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-//               <image>
-//                  <Image url="@Boats%202.png" />
-//               </image>
-//            </ImageView>
-//            <ImageView fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-//               <image>
-//                  <Image url="@Boats%203.png" />
-//               </image>
-//            </ImageView>
-//            <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-//               <image>
-//                  <Image url="@Boats%204.png" />
-//               </image>
-//            </ImageView>
-//            <ImageView fitHeight="50.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-//               <image>
-//                  <Image url="@Boats%205.png" />
-//               </image>
-//            </ImageView>

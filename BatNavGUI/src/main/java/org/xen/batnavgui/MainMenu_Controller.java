@@ -27,9 +27,8 @@ public class MainMenu_Controller {
     void Start(boolean cheating) throws IOException {
         // TODO : gérer la partie du paramètre <cheating>
 
+        MainApplication.batailleUI.triche = cheating;
         MainApplication.ChangeScene(MainApplication.PLACE_BOATS_FXML, "Plaçage des bateaux");
-
-
     }
 
 }

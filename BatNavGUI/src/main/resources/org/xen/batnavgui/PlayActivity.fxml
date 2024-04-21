@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xen.batnavgui.PlayActivity_Controller">
+    <children>
+        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+              minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="480.0">
+            <children>
+                <Text fx:id="AffichageVictoire" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="30.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font name="Gill Sans MT" size="36.0"/>
+                    </font>
+                </Text>
+                <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="200.0" prefWidth="150.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toi">
+                                    <font>
+                                        <Font name="System Bold" size="20.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="15.0"/>
+                                    </VBox.margin>
+                                </Text>
+                                <Text fx:id="AffichageInfosJoueur" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      textAlignment="CENTER">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                            <HBox.margin>
+                                <Insets right="10.0"/>
+                            </HBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="200.0" prefWidth="150.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adversaire">
+                                    <font>
+                                        <Font name="System Bold" size="20.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="15.0"/>
+                                    </VBox.margin>
+                                </Text>
+                                <Text fx:id="AffichageInfosOrdi" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      textAlignment="CENTER">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </VBox>
+                    </children>
+                </HBox>
+                <VBox alignment="TOP_CENTER">
+                    <children>
+                        <Button fx:id="ActiverTriche" mnemonicParsing="false" onAction="#AfficherTriche"
+                                prefHeight="35.0" prefWidth="120.0" text="Activer triche" textAlignment="CENTER">
+                            <VBox.margin>
+                                <Insets bottom="5.0"/>
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#MenuPrincipal" prefHeight="35.0" prefWidth="120.0"
+                                text="Menu Principal" textAlignment="CENTER">
+                            <VBox.margin>
+                                <Insets bottom="5.0"/>
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#Quitter" prefHeight="35.0" prefWidth="120.0"
+                                text="Quitter" textAlignment="CENTER">
+                            <VBox.margin>
+                                <Insets bottom="5.0"/>
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </VBox>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Grille Adversaire">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </Text>
+                <GridPane fx:id="GrilleAdverse" alignment="CENTER_RIGHT" gridLinesVisible="true">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <HBox.margin>
+                    </HBox.margin>
+                    <children>
+                        <ImageView fitHeight="300.0" fitWidth="300.0" mouseTransparent="true" pickOnBounds="true"
+                                   preserveRatio="true" translateY="135.0">
+                            <image>
+                                <Image url="@images/evian.jpg"/>
+                            </image>
+                        </ImageView>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="3"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="4"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="9"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="8"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="6"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="7"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="4" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="5" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="6" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="7" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="8" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"
+                                GridPane.columnIndex="9" GridPane.rowIndex="5"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#ClicGrilleAdverse" opacity="0.0"/>
+                    </children>
+                </GridPane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Grille Joueur">
+                    <VBox.margin>
+                        <Insets top="7.0"/>
+                    </VBox.margin>
+                </Text>
+                <GridPane fx:id="GrilleJoueur" alignment="CENTER_RIGHT" gridLinesVisible="true">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="30.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                        vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <ImageView fitHeight="300.0" fitWidth="300.0" mouseTransparent="true" pickOnBounds="true"
+                                   preserveRatio="true" translateY="135.0">
+                            <image>
+                                <Image url="@images/cristalline.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </GridPane>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <HBox.margin>
+                <Insets right="20.0"/>
+            </HBox.margin>
+        </VBox>
+    </children>
+</HBox>
